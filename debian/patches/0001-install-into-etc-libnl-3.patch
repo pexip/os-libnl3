@@ -1,0 +1,100 @@
+From 91b45880ed2b1ecc09ac0f831f3dba233478755f Mon Sep 17 00:00:00 2001
+From: Heiko Stuebner <heiko@sntech.de>
+Date: Mon, 28 Nov 2011 09:56:02 +0100
+Subject: [PATCH] install in libnl-3
+
+diff -Nur -x '*.orig' -x '*~' libnl3/lib/Makefile.am libnl3.new/lib/Makefile.am
+--- libnl3/lib/Makefile.am	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/lib/Makefile.am	2012-04-02 15:56:21.012694438 -0400
+@@ -7,7 +7,7 @@
+ 	-I${builddir}/route \
+ 	-I${builddir}/route/cls \
+ 	-D_GNU_SOURCE \
+-	-DSYSCONFDIR=\"$(sysconfdir)/libnl\"
++	-DSYSCONFDIR=\"$(sysconfdir)/libnl-3\"
+ 
+ AM_LDFLAGS = \
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+diff -Nur -x '*.orig' -x '*~' libnl3/lib/Makefile.in libnl3.new/lib/Makefile.in
+--- libnl3/lib/Makefile.in	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/lib/Makefile.in	2012-04-02 15:57:42.500699166 -0400
+@@ -342,7 +342,7 @@
+ 	-I${builddir}/route \
+ 	-I${builddir}/route/cls \
+ 	-D_GNU_SOURCE \
+-	-DSYSCONFDIR=\"$(sysconfdir)/libnl\"
++	-DSYSCONFDIR=\"$(sysconfdir)/libnl-3\"
+ 
+ AM_LDFLAGS = \
+ 	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE)
+diff -Nur -x '*.orig' -x '*~' libnl3/Makefile.am libnl3.new/Makefile.am
+--- libnl3/Makefile.am	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/Makefile.am	2012-04-02 15:56:21.012694438 -0400
+@@ -19,7 +19,7 @@
+ 		 $(PKGCONFIGS)
+ 
+ 
+-pkgsysconfdir = ${sysconfdir}/libnl
++pkgsysconfdir = ${sysconfdir}/libnl-3
+ pkgsysconf_DATA = etc/pktloc etc/classid
+ 
+ EXTRA_DIST = \
+diff -Nur -x '*.orig' -x '*~' libnl3/Makefile.in libnl3.new/Makefile.in
+--- libnl3/Makefile.in	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/Makefile.in	2012-04-02 15:56:55.512696441 -0400
+@@ -281,7 +281,7 @@
+ 		 libnl-nf-3.0.pc \
+ 		 $(PKGCONFIGS)
+ 
+-pkgsysconfdir = ${sysconfdir}/libnl
++pkgsysconfdir = ${sysconfdir}/libnl-3
+ pkgsysconf_DATA = etc/pktloc etc/classid
+ EXTRA_DIST = \
+ 	$(pkgsysconf_DATA)
+diff -Nur -x '*.orig' -x '*~' libnl3/src/lib/Makefile.am libnl3.new/src/lib/Makefile.am
+--- libnl3/src/lib/Makefile.am	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/src/lib/Makefile.am	2012-04-02 15:56:21.016694438 -0400
+@@ -1,6 +1,6 @@
+ # -*- Makefile -*-
+ 
+-AM_CPPFLAGS  = -Wall -I${top_srcdir}/include -I${top_builddir}/include -D_GNU_SOURCE -DPKGLIBDIR=\"$(pkglibdir)\" -DSYSCONFDIR=\"$(sysconfdir)\" -rdynamic
++AM_CPPFLAGS  = -Wall -I${top_srcdir}/include -I${top_builddir}/include -D_GNU_SOURCE -DPKGLIBDIR=\"$(pkglibdir)-3\" -DSYSCONFDIR=\"$(sysconfdir)\" -rdynamic
+ AM_LDFLAGS = \
+ 	-L${top_builddir}/lib \
+ 	-ldl \
+diff -Nur -x '*.orig' -x '*~' libnl3/src/lib/Makefile.in libnl3.new/src/lib/Makefile.in
+--- libnl3/src/lib/Makefile.in	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/src/lib/Makefile.in	2012-04-02 15:59:21.952704938 -0400
+@@ -240,7 +240,7 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-AM_CPPFLAGS = -Wall -I${top_srcdir}/include -I${top_builddir}/include -D_GNU_SOURCE -DPKGLIBDIR=\"$(pkglibdir)\" -DSYSCONFDIR=\"$(sysconfdir)\" -rdynamic
++AM_CPPFLAGS = -Wall -I${top_srcdir}/include -I${top_builddir}/include -D_GNU_SOURCE -DPKGLIBDIR=\"$(pkglibdir)-3\" -DSYSCONFDIR=\"$(sysconfdir)\" -rdynamic
+ AM_LDFLAGS = \
+ 	-L${top_builddir}/lib \
+ 	-ldl \
+diff -Nur -x '*.orig' -x '*~' libnl3/src/Makefile.am libnl3.new/src/Makefile.am
+--- libnl3/src/Makefile.am	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/src/Makefile.am	2012-04-02 15:56:21.012694438 -0400
+@@ -2,7 +2,7 @@
+ 
+ SUBDIRS = lib
+ 
+-AM_CPPFLAGS  = -Wall -I${top_srcdir}/include -I${top_builddir}/include -D_GNU_SOURCE -DSYSCONFDIR=\"$(sysconfdir)/libnl\"
++AM_CPPFLAGS  = -Wall -I${top_srcdir}/include -I${top_builddir}/include -D_GNU_SOURCE -DSYSCONFDIR=\"$(sysconfdir)/libnl-3\"
+ 
+ LDADD = \
+ 	${top_builddir}/src/lib/libnl-cli-3.la \
+diff -Nur -x '*.orig' -x '*~' libnl3/src/Makefile.in libnl3.new/src/Makefile.in
+--- libnl3/src/Makefile.in	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/src/Makefile.in	2012-04-02 15:59:39.540705958 -0400
+@@ -642,7 +642,7 @@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ SUBDIRS = lib
+-AM_CPPFLAGS = -Wall -I${top_srcdir}/include -I${top_builddir}/include -D_GNU_SOURCE -DSYSCONFDIR=\"$(sysconfdir)/libnl\"
++AM_CPPFLAGS = -Wall -I${top_srcdir}/include -I${top_builddir}/include -D_GNU_SOURCE -DSYSCONFDIR=\"$(sysconfdir)/libnl-3\"
+ LDADD = \
+ 	${top_builddir}/src/lib/libnl-cli-3.la \
+ 	${top_builddir}/lib/libnl-3.la \

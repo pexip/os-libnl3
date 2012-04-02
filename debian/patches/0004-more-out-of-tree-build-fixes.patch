@@ -1,0 +1,92 @@
+diff -Nur -x '*.orig' -x '*~' libnl3/doc/Makefile.am libnl3.new/doc/Makefile.am
+--- libnl3/doc/Makefile.am	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/doc/Makefile.am	2012-04-02 15:34:47.796619394 -0400
+@@ -79,16 +79,16 @@
+ 	images/icons/callouts/15.png
+ 
+ %.html: %.txt
+-	./resolve-asciidoc-refs.py $< > asciidoc.tmp
++	../../../../doc/resolve-asciidoc-refs.py $< > asciidoc.tmp
+ 	asciidoc $(ASCIIDOCOPTS) -o $@ asciidoc.tmp
+-	./doxygen-link.py libnl.dict $@ > asciidoc.tmp
++	../../../../doc/doxygen-link.py libnl.dict $@ > asciidoc.tmp
+ 	mv asciidoc.tmp $@
+ 
+ asciidoc: core.html route.html index.html
+ 
+ api_ref:
+ 	doxygen Doxyfile;
+-	./gen-tags.sh | ./tags2dict.sh > libnl.dict
++	../../../../doc/gen-tags.sh | ../../../../doc/tags2dict.sh > libnl.dict
+ 
+ gendoc:
+ 	$(MAKE) api_ref
+diff -Nur -x '*.orig' -x '*~' libnl3/doc/Makefile.in libnl3.new/doc/Makefile.in
+--- libnl3/doc/Makefile.in	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/doc/Makefile.in	2012-04-02 15:35:40.560622455 -0400
+@@ -452,16 +452,16 @@
+ .PHONY: gendoc api_refs asciidoc
+ 
+ %.html: %.txt
+-	./resolve-asciidoc-refs.py $< > asciidoc.tmp
++	../../../../doc/resolve-asciidoc-refs.py $< > asciidoc.tmp
+ 	asciidoc $(ASCIIDOCOPTS) -o $@ asciidoc.tmp
+-	./doxygen-link.py libnl.dict $@ > asciidoc.tmp
++	../../../../doc/doxygen-link.py libnl.dict $@ > asciidoc.tmp
+ 	mv asciidoc.tmp $@
+ 
+ asciidoc: core.html route.html index.html
+ 
+ api_ref:
+ 	doxygen Doxyfile;
+-	./gen-tags.sh | ./tags2dict.sh > libnl.dict
++	../../../../doc/gen-tags.sh | ../../../../doc/tags2dict.sh > libnl.dict
+ 
+ gendoc:
+ 	$(MAKE) api_ref
+diff -Nur -x '*.orig' -x '*~' libnl3/lib/Makefile.am libnl3.new/lib/Makefile.am
+--- libnl3/lib/Makefile.am	2012-04-02 15:34:46.760619334 -0400
++++ libnl3.new/lib/Makefile.am	2012-04-02 15:34:47.796619394 -0400
+@@ -39,15 +39,19 @@
+ # Hack to avoid using ylwrap. It does not function correctly in combination
+ # with --header-file=
+ route/pktloc_grammar.c: route/pktloc_grammar.l
++	$(AM_V_GEN) install -d route/
+ 	$(AM_V_GEN) $(LEX) --header-file=route/pktloc_grammar.h $(LFLAGS) -o $@ $^
+ 
+ route/pktloc_syntax.c: route/pktloc_syntax.y
++	$(AM_V_GEN) install -d route/
+ 	$(AM_V_GEN) $(YACC) -d $(YFLAGS) -o $@ $^
+ 
+ route/cls/ematch_grammar.c: route/cls/ematch_grammar.l
++	$(AM_V_GEN) install -d route/cls/
+ 	$(AM_V_GEN) $(LEX) --header-file=route/cls/ematch_grammar.h $(LFLAGS) -o $@ $^
+ 
+ route/cls/ematch_syntax.c: route/cls/ematch_syntax.y
++	$(AM_V_GEN) install -d route/cls/
+ 	$(AM_V_GEN) $(YACC) -d $(YFLAGS) -o $@ $^
+ 
+ libnl_route_3_la_LIBADD  = libnl-3.la
+diff -Nur -x '*.orig' -x '*~' libnl3/lib/Makefile.in libnl3.new/lib/Makefile.in
+--- libnl3/lib/Makefile.in	2012-04-02 15:17:22.222698000 -0400
++++ libnl3.new/lib/Makefile.in	2012-04-02 15:34:47.800619394 -0400
+@@ -1274,15 +1274,19 @@
+ # Hack to avoid using ylwrap. It does not function correctly in combination
+ # with --header-file=
+ route/pktloc_grammar.c: route/pktloc_grammar.l
++	$(AM_V_GEN) install -d route/
+ 	$(AM_V_GEN) $(LEX) --header-file=route/pktloc_grammar.h $(LFLAGS) -o $@ $^
+ 
+ route/pktloc_syntax.c: route/pktloc_syntax.y
++	$(AM_V_GEN) install -d route/
+ 	$(AM_V_GEN) $(YACC) -d $(YFLAGS) -o $@ $^
+ 
+ route/cls/ematch_grammar.c: route/cls/ematch_grammar.l
++	$(AM_V_GEN) install -d route/cls/
+ 	$(AM_V_GEN) $(LEX) --header-file=route/cls/ematch_grammar.h $(LFLAGS) -o $@ $^
+ 
+ route/cls/ematch_syntax.c: route/cls/ematch_syntax.y
++	$(AM_V_GEN) install -d route/cls/
+ 	$(AM_V_GEN) $(YACC) -d $(YFLAGS) -o $@ $^
+ 
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
