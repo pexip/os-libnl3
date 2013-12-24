@@ -1,13 +1,15 @@
 Source: libnl3
 Section: net
 Priority: optional
-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Maintainer: Pexip AS <packaging@pexip.com>
+XSBC-Pexip-Original-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Heiko Stuebner <mmind@debian.org>
 DM-Upload-Allowed: yes
 Build-Depends: debhelper (>= 7), cdbs, doxygen, bison, flex, mscgen, graphviz,
  python-pygments, xmlstarlet, texlive-latex-base, asciidoc, automake
 Standards-Version: 3.9.2
 Homepage: http://people.suug.ch/~tgr/libnl/
+XS-Pexip-Upstream: http://archive.ubuntu.com/ubuntu/ precise
 
 Package: libnl-3-200
 Architecture: linux-any
